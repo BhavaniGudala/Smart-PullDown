@@ -4,7 +4,6 @@ import {
   Grid,
   FormControl,
   FormLabel,
-  TextField,
   Select,
   MenuItem,
   Checkbox,
@@ -12,8 +11,39 @@ import {
   OutlinedInput,
   Button,
   Typography,
+  TextField,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { MapContainer, TileLayer, Marker,Tooltip, Polyline, useMapEvents } from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import OpenRouteService from "openrouteservice-js";
+
+
+// Custom Icons
+const startIcon = new L.Icon({
+  iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
+  iconSize: [32, 32],
+  iconAnchor: [16, 32],
+});
+
+const destinationIcon = new L.Icon({
+  iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
+  iconSize: [32, 32],
+  iconAnchor: [16, 32],
+  className: "destination-icon",
+});
+
+// Styles for destination icon to differentiate color
+const destinationIconStyle = `
+  .destination-icon {
+    filter: hue-rotate(120deg);
+  }
+`;
+document.head.insertAdjacentHTML(
+  "beforeend",
+  `<style>${destinationIconStyle}</style>`
+);
 
 const cargoTypes = [
   { value: "Perishable", label: "Perishable" },
@@ -43,14 +73,34 @@ const MenuProps = {
 
 const CargoForm = () => {
   const [formData, setFormData] = useState({
-    startingPlace: "",
-    destinationPlace: "",
+    startingPlace: null,
+    destinationPlace: null,
     cargoType: "",
     temperatureRange: "",
     selectedAssets: [],
   });
 
+  const [startMarker, setStartMarker] = useState(null);
+  const [destMarker, setDestMarker] = useState(null);
+
   const navigate = useNavigate();
+
+  const MapClickHandler = () => {
+    useMapEvents({
+      click(event) {
+        const { lat, lng } = event.latlng;
+        const locationName = `Lat: ${lat.toFixed(4)}, Lng: ${lng.toFixed(4)}`; // Tooltip text
+        if (!startMarker || destMarker) {
+          setStartMarker({ lat, lng, name: locationName });
+          setFormData({ ...formData, startingPlace: locationName });
+        } else {
+          setDestMarker({ lat, lng, name: locationName });
+          setFormData({ ...formData, destinationPlace: locationName });
+        }
+      },
+    });
+    return null;
+  };
 
   const handleAssetsChange = (event) => {
     const {
@@ -64,16 +114,6 @@ const CargoForm = () => {
 
   const handleSubmit = () => {
     console.log("Form Data Submitted:", formData);
-
-    // Example API call
-    // fetch("https://api.example.com/submit", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(formData),
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => console.log("API Response:", data));
-
     navigate("/grid");
   };
 
@@ -81,49 +121,92 @@ const CargoForm = () => {
     <Box
       sx={{
         p: 4,
-        maxWidth: "800px",
+        maxWidth: "1000px",
         mx: "auto",
         boxShadow: 3,
         borderRadius: 2,
         backgroundColor: "#fff",
       }}
     >
-      <Typography variant="h5" gutterBottom alignContent='center'>
-        Fleet Falcons
-      </Typography>
+      {/* Map Section */}
+      <Box sx={{ height: 400, mb: 4 }}>
+        <Typography variant="subtitle1" gutterBottom>
+          Select Starting and Destination Places:
+        </Typography>
+        <MapContainer
+          center={[40, -100]}
+          zoom={3.5}
+          style={{ width: "100%", height: "100%" }}
+        >
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution="&copy; OpenStreetMap contributors"
+          />
+          <MapClickHandler />
+          {startMarker && (
+            <Marker
+              position={[startMarker.lat, startMarker.lng]}
+              icon={startIcon}
+            >
+              <Tooltip>{startMarker.name || "Starting Location"}</Tooltip>
+            </Marker>
+          )}
+          {destMarker && (
+            <Marker
+              position={[destMarker.lat, destMarker.lng]}
+              icon={destinationIcon}
+            >
+              <Tooltip>{destMarker.name || "Destination Location"}</Tooltip>
+            </Marker>
+          )}
+          {startMarker && destMarker && (
+            <Polyline
+              positions={[
+                [startMarker.lat, startMarker.lng],
+                [destMarker.lat, destMarker.lng],
+              ]}
+              color="blue"
+            />
+          )}
+        </MapContainer>
+        <Typography variant="caption" color="textSecondary">
+          Click the map to select Starting (Green) and Destination (Blue) points.
+        </Typography>
+      </Box>
 
-      <Box component="form" noValidate autoComplete="off">
+      {/* Location Inputs */}
+      <Box sx={{ mb: 2, mt: '80px' }}>
         <Grid container spacing={2}>
-          {/* Starting and Destination Place */}
-          <Grid item xs={12} md={6}>
-            <FormControl fullWidth>
-              <FormLabel>Starting Place :</FormLabel>
-              <TextField
-                placeholder="Enter starting place"
-                value={formData.startingPlace}
-                onChange={(e) =>
-                  setFormData({ ...formData, startingPlace: e.target.value })
-                }
-              />
-            </FormControl>
+          <Grid item xs={12}>
+            <TextField
+              label="From Location"
+              fullWidth
+              value={formData.startingPlace || ""}
+              InputProps={{
+                readOnly: true,
+              }}
+            />
           </Grid>
-          <Grid item xs={12} md={6}>
-            <FormControl fullWidth>
-              <FormLabel>Destination Place : </FormLabel>
-              <TextField
-                placeholder="Enter destination place"
-                value={formData.destinationPlace}
-                onChange={(e) =>
-                  setFormData({ ...formData, destinationPlace: e.target.value })
-                }
-              />
-            </FormControl>
+          <Grid item xs={12}>
+            <TextField
+              label="To Location"
+              fullWidth
+              value={formData.destinationPlace || ""}
+              InputProps={{
+                readOnly: true,
+              }}
+            />
           </Grid>
+        </Grid>
+      </Box>
 
+      {/* Cargo Form */}
+      <Box sx={{ mb: 2 }}>
+        <Grid container spacing={2}>
           {/* Cargo Type Dropdown */}
           <Grid item xs={12}>
             <FormControl fullWidth>
-              <FormLabel>Select Cargo Type : </FormLabel>
+              <FormLabel>Select Cargo Type: </FormLabel>
               <Select
                 value={formData.cargoType}
                 onChange={(e) =>
@@ -142,8 +225,8 @@ const CargoForm = () => {
           {/* Temperature Range */}
           <Grid item xs={12}>
             <FormControl fullWidth>
-              <FormLabel>Desired Temperature (°C) : </FormLabel>
-              <TextField
+              <FormLabel>Desired Temperature (°C): </FormLabel>
+              <OutlinedInput
                 placeholder="e.g., -5 to 10"
                 value={formData.temperatureRange}
                 onChange={(e) =>
@@ -159,7 +242,7 @@ const CargoForm = () => {
           {/* Assets Multi-Select */}
           <Grid item xs={12}>
             <FormControl fullWidth>
-              <FormLabel>Select Fleet Assets : </FormLabel>
+              <FormLabel>Select Fleet Assets: </FormLabel>
               <Select
                 multiple
                 value={formData.selectedAssets}
@@ -187,6 +270,7 @@ const CargoForm = () => {
               color="primary"
               fullWidth
               onClick={handleSubmit}
+              disabled={!startMarker || !destMarker}
             >
               Submit
             </Button>

@@ -10,190 +10,21 @@ import {
   Typography,
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-
-const rows = [
-    {
-        "companyID": 112933162,
-        "companyName": "KLLM Transport",
-        "assetID": 11061387281811,
-        "unitSerialNumber": "RAG91407961",
-        "dataGateId": "GS3ACI30303009",
-        "overall_Score": 0.2,  
-        "overall_Category": 0,
-        "carbonEmissionPercent":0, 
-        "no.Of.Refuelling": 1,
-        "pretripResult":"pass",
-        "unitRating":3.5,
-     },
-     {
-        "companyID": 112933162,
-        "companyName": "KLLM Transport",
-        "assetID": 1106138281811,
-        "unitSerialNumber": "RAG91407961",
-        "dataGateId": "GS3ACI30303009",
-        "overall_Score": 0.2,  
-        "overall_Category": 0,
-        "carbonEmissionPercent":0, 
-        "no.Of.Refuelling": 1,
-        "pretripResult":"pass",
-        "unitRating":3.5,
-     },
-     {
-        "companyID": 112933162,
-        "companyName": "KLLM Transport",
-        "assetID": 1106138728181,
-        "unitSerialNumber": "RAG91407961",
-        "dataGateId": "GS3ACI30303009",
-        "overall_Score": 0.2,  
-        "overall_Category": 0,
-        "carbonEmissionPercent":0, 
-        "no.Of.Refuelling": 1,
-        "pretripResult":"pass",
-        "unitRating":3.5,
-     },
-     {
-        "companyID": 112933162,
-        "companyName": "KLLM Transport",
-        "assetID": 1061387281811,
-        "unitSerialNumber": "RAG91407961",
-        "dataGateId": "GS3ACI30303009",
-        "overall_Score": 0.2,  
-        "overall_Category": 0,
-        "carbonEmissionPercent":0, 
-        "no.Of.Refuelling": 1,
-        "pretripResult":"pass",
-        "unitRating":3.5,
-     },
-     {
-        "companyID": 112933162,
-        "companyName": "KLLM Transport",
-        "assetID": 111387281811,
-        "unitSerialNumber": "RAG91407961",
-        "dataGateId": "GS3ACI30303009",
-        "overall_Score": 0.2,  
-        "overall_Category": 0,
-        "carbonEmissionPercent":0, 
-        "no.Of.Refuelling": 1,
-        "pretripResult":"pass",
-        "unitRating":3.5,
-     },
-     {
-        "companyID": 112933162,
-        "companyName": "KLLM Transport",
-        "assetID": 110613881811,
-        "unitSerialNumber": "RAG91407961",
-        "dataGateId": "GS3ACI30303009",
-        "overall_Score": 0.2,  
-        "overall_Category": 0,
-        "carbonEmissionPercent":0, 
-        "no.Of.Refuelling": 1,
-        "pretripResult":"pass",
-        "unitRating":3.5,
-     },
-     {
-        "companyID": 112933162,
-        "companyName": "KLLM Transport",
-        "assetID": 11061387211,
-        "unitSerialNumber": "RAG91407961",
-        "dataGateId": "GS3ACI30303009",
-        "overall_Score": 0.2,  
-        "overall_Category": 0,
-        "carbonEmissionPercent":0, 
-        "no.Of.Refuelling": 1,
-        "pretripResult":"pass",
-        "unitRating":3.5,
-     },
-     {
-        "companyID": 112933162,
-        "companyName": "KLLM Transport",
-        "assetID": 387281811,
-        "unitSerialNumber": "RAG91407961",
-        "dataGateId": "GS3ACI30303009",
-        "overall_Score": 0.2,  
-        "overall_Category": 0,
-        "carbonEmissionPercent":0, 
-        "no.Of.Refuelling": 1,
-        "pretripResult":"pass",
-        "unitRating":3.5,
-     },
-     {
-        "companyID": 112933162,
-        "companyName": "KLLM Transport",
-        "assetID": 1106138,
-        "unitSerialNumber": "RAG91407961",
-        "dataGateId": "GS3ACI30303009",
-        "overall_Score": 0.2,  
-        "overall_Category": 0,
-        "carbonEmissionPercent":0, 
-        "no.Of.Refuelling": 1,
-        "pretripResult":"pass",
-        "unitRating":3.5,
-     },
-     {
-        "companyID": 112933162,
-        "companyName": "KLLM Transport",
-        "assetID": 1106138,
-        "unitSerialNumber": "RAG91407961",
-        "dataGateId": "GS3ACI30303009",
-        "overall_Score": 0.2,  
-        "overall_Category": 0,
-        "carbonEmissionPercent":0, 
-        "no.Of.Refuelling": 1,
-        "pretripResult":"pass",
-        "unitRating":3.5,
-     },
-     {
-        "companyID": 112933162,
-        "companyName": "KLLM Transport",
-        "assetID": 19961387281811,
-        "unitSerialNumber": "RAG91407961",
-        "dataGateId": "GS3ACI30303009",
-        "overall_Score": 0.2,  
-        "overall_Category": 0,
-        "carbonEmissionPercent":0, 
-        "no.Of.Refuelling": 1,
-        "pretripResult":"pass",
-        "unitRating":3.5,
-     },
-     {
-        "companyID": 112933162,
-        "companyName": "KLLM Transport",
-        "assetID": 14361387281811,
-        "unitSerialNumber": "RAG91407961",
-        "dataGateId": "GS3ACI30303009",
-        "overall_Score": 0.2,  
-        "overall_Category": 0,
-        "carbonEmissionPercent":0, 
-        "no.Of.Refuelling": 1,
-        "pretripResult":"pass",
-        "unitRating":3.5,
-     },
-     {
-        "companyID": 112933162,
-        "companyName": "KLLM Transport",
-        "assetID": 21387281811,
-        "unitSerialNumber": "RAG91407961",
-        "dataGateId": "GS3ACI30303009",
-        "overall_Score": 0.2,  
-        "overall_Category": 0,
-        "carbonEmissionPercent":0, 
-        "no.Of.Refuelling": 1,
-        "pretripResult":"pass",
-        "unitRating":3.5,
-     },
-];
+import {data} from './data';
 
 const columns = [
-  { field: "companyID", headerName: "Company ID", width: 120 },
-  { field: "companyName", headerName: "Company Name", width: 150 },
-  { field: "assetID", headerName: "Asset ID", width: 200 },
+  { field: "assetID", headerName: "Asset ID", width: 100 },
+  { field: "assetName", headerName: "Asset Name", width: 120 },
+  { field: "fleetID", headerName: "fleet ID", width: 100 },
   { field: "unitSerialNumber", headerName: "UnitSerial Number", width: 100 },
-  { field: "dataGateId", headerName: "Data Gate Id", width: 150 },
-  { field: "overall_Score", headerName: "Overall Score", width: 80 },
-  { field: "unitRating", headerName: "Unit Rating", width: 80 },
-  { field: "carbonEmissionPercent", headerName: "Carbon Emission Percent", width: 200 },
-  { field: "no.Of.Refuelling", headerName: "No Of Refuelling", width: 150 },
-  { field: "pretripResult", headerName: "Pre Trip Result", width: 100 },
+  { field: "eventTime", headerName: "Event Time", width: 100 },
+  { field: "dataGateID", headerName: "Data Gate Id", width: 100 },
+  { field: "truHealth", headerName: "TRU Health", width: 100 },
+  { field: "co2Mission", headerName: "Carbon Emission Percent", width: 200 },
+  { field: "engineHours", headerName: "Engine Hours", width: 150 },
+  { field: "preTrip", headerName: "Pre Trip Result", width: 120 },
+  { field: "fuelLevel", headerName: "fuel Level", width: 100 },
+  { field: "referStatus", headerName: "Refer Status", width: 100 },
   { field: "unitRating", headerName: "Unit Rating", width: 100 },
   {
     field: "actions",
@@ -227,15 +58,51 @@ const GridPage = () => {
   const [openPreviewDialog, setOpenPreviewDialog] = useState(false);
   const [openActionDialog, setOpenActionDialog] = useState(false);
   const [dialogContent, setDialogContent] = useState("");
+  const [apiResponse, setApiResponse] = useState(null);
 
-  const handlePreview = (content) => {
-    setDialogContent(content);
+  const fetchApiData = async (assetID, type) => {
+    try {
+      const response = await fetch(`https://api.example.com/${type}?assetID=${assetID}`);
+      if (!response.ok) throw new Error("Failed to fetch data");
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(`Error fetching ${type} data for assetID ${assetID}:`, error);
+      return { error: error.message };
+    }
+  };
+
+  const handlePreview = async (assetID) => {
+    const data = await fetchApiData(assetID, "preview");
+    // if (data.error) {
+    //   setDialogContent(`Error: ${data.error}`);
+    // } else {
+      setDialogContent(`Preview content for Preview content for Preview content for ${assetID}: ${data.description}`);
+    // }
+    setApiResponse(data); // Store API response for further use if needed
     setOpenPreviewDialog(true);
   };
 
-  const handleAction = (content) => {
-    setDialogContent(content);
+  const handleAction = async (assetID) => {
+    const data = await fetchApiData(assetID, "action");
+    // if (data.error) {
+    //   setDialogContent(`Error: ${data.error}`);
+    // } else {
+      setDialogContent(`Perform action for ${assetID}?`);
+    // }
+    setApiResponse(data); // Store API response for further use if needed
     setOpenActionDialog(true);
+  };
+
+  const handleYes = () => {
+    console.log("Action confirmed:", apiResponse);
+    // Perform further actions, e.g., another API call, based on `apiResponse`
+    setOpenActionDialog(false);
+  };
+
+  const handleNo = () => {
+    console.log("Action canceled");
+    setOpenActionDialog(false);
   };
 
   const closeDialog = () => {
@@ -244,10 +111,10 @@ const GridPage = () => {
   };
 
   // Adding the handlers to the row data dynamically
-  const rowsWithHandlers = rows.map((row) => ({
+  const rowsWithHandlers = data.map((row) => ({
     ...row,
-    handlePreview: () => handlePreview(`Preview content for ${row.companyName}, gghgh vvhhhbh ghghghgh vhhghghhhaaaahgh avdhdh hghad hygahdgahgdha ghgadhgadaj hadhghdgah `),
-    handleAction: () => handleAction(`Action content for ${row.dataGateId}`),
+    handlePreview: () => handlePreview(row.assetID),
+    handleAction: () => handleAction(row.assetID),
   }));
 
   // Custom header with row count
@@ -255,17 +122,22 @@ const GridPage = () => {
     return (
       <Grid container justifyContent="space-between" alignItems="center" sx={{ marginBottom: 2 }}>
         <Grid item>
-          <Typography variant="subtitle1">Rows Count: {rows.length}</Typography>
+          <Typography variant="subtitle1">Rows Count: {data.length}</Typography>
         </Grid>
       </Grid>
     );
   };
 
   return (
-    <Box sx={{ height: '650px', width: "100%" }}>
+    <Box sx={{ height: "650px", width: "100%" }}>
       <CustomHeader /> {/* Custom Header with Row Count */}
 
-      <DataGrid rows={rowsWithHandlers} columns={columns} pageSize={5} getRowId={(row) => row.assetID} />
+      <DataGrid
+        rows={rowsWithHandlers}
+        columns={columns}
+        pageSize={5}
+        getRowId={(row) => row.assetID}
+      />
 
       {/* Preview Dialog */}
       <Dialog open={openPreviewDialog} onClose={closeDialog}>
@@ -274,7 +146,7 @@ const GridPage = () => {
           <Typography>{dialogContent}</Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={closeDialog} color="primary">
+          <Button variant="contained" onClick={closeDialog} color="primary">
             Close
           </Button>
         </DialogActions>
@@ -287,8 +159,11 @@ const GridPage = () => {
           <Typography>{dialogContent}</Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={closeDialog} color="primary">
-            Close
+          <Button variant="contained" onClick={handleYes} color="primary">
+            Yes
+          </Button>
+          <Button variant="contained" onClick={handleNo} color="primary">
+            No
           </Button>
         </DialogActions>
       </Dialog>
